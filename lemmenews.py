@@ -24,7 +24,7 @@ def post_to_discord():
             img_url = news['enclosure'].get('link', '')
 
         payload = {
-            "username": "LemmeNews",
+            "username": "KnowBetter",
             "embeds": [{
                 "title": news['title'],
                 "description": news['description'][:500] + "..." if news.get('description') else "Click the link to read more.",
