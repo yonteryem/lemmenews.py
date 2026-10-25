@@ -1,7 +1,7 @@
 import requests
 
 # Hardcoded directly so it works instantly
-WEBHOOK_URL = "https://discord.com/api/webhooks/1483156092597960927/VmGU-WdHbvz2KuvB3J2fmTlph5_vAGEXzZ6tPWZpiGgKEVBsQYMNWzgNOnKguD5b4TF9"
+WEBHOOK_URL = "https://discord.com/api/webhooks/1563997924235415565/Lw_eZwv_JNMhfhEfIyeltIr64OLuI0mpvzjYQRNIMqC4cKoKbeCJNrVMqKrmq83duOMH"
 
 NEWS_SOURCES = [
     {
