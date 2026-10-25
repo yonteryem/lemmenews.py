@@ -17,6 +17,9 @@ jobs:
           python-version: '3.11'
 
       - name: Run LemmeNews Script
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
           pip install requests
           python lemmenews.py
+          
