@@ -1,6 +1,7 @@
+import os
 import requests
 
-WEBHOOK_URL = "https://discord.com/api/webhooks/1483156092597960927/VmGU-WdHbvz2KuvB3J2fmTlph5_vAGEXzZ6tPWZpiGgKEVBsQYMNWzgNOnKguD5b4TF9"
+WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK")
 
 NEWS_SOURCES = [
     {
@@ -16,6 +17,10 @@ NEWS_SOURCES = [
 ]
 
 def post_to_discord():
+    if not WEBHOOK_URL:
+        print("Error: DISCORD_WEBHOOK environment variable is missing.")
+        return
+
     for source in NEWS_SOURCES:
         try:
             api_url = f"https://api.rss2json.com/v1/api.json?rss_url={source['rss_url']}"
@@ -23,19 +28,15 @@ def post_to_discord():
             articles = response.get('items', [])
 
             if not articles:
-                print(f"No news found for {source['name']}.")
                 continue
 
-            # Grab the newest article
             news = articles[0]
-            
-            # Pulling the image from the RSS feed data
             img_url = news.get('thumbnail', '')
             if not img_url and isinstance(news.get('enclosure'), dict):
                 img_url = news['enclosure'].get('link', '')
 
             payload = {
-                "username": "KnowBetter",
+                "username": "LemmeNews",
                 "embeds": [{
                     "title": news['title'],
                     "description": news['description'][:500] + "..." if news.get('description') else "Click the link to read more.",
@@ -47,7 +48,6 @@ def post_to_discord():
             }
 
             requests.post(WEBHOOK_URL, json=payload)
-            print(f"{source['name']} sent!")
             
         except Exception as e:
             print(f"Error with {source['name']}: {e}")
